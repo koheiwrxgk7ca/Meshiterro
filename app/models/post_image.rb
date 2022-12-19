@@ -3,6 +3,7 @@ class PostImage < ApplicationRecord
   # ActiveStorageとセット、画像を扱う際に必要
   belongs_to :user
   has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   
   
   
@@ -14,5 +15,9 @@ class PostImage < ApplicationRecord
     image
   end
   
+  
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+  end
   
 end
